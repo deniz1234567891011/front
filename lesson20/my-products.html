@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Общие стили и сброс */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f0f0f0; /* Цвет фона, как на скриншоте */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+/* Верхняя промо-строка (хоть и не в твоем HTML, она есть на скриншоте) */
+.top-promo-bar {
+    background-color: #dc3545; /* Красный цвет */
+    color: white;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.top-promo-bar .shop-now {
+    color: white;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+/* Основной заголовок (Header) (хоть и не в твоем HTML, он есть на скриншоте) */
+.main-header {
+    background-color: white;
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 25px;
+}
+
+.main-nav a {
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+    color: #dc3545;
+}
+
+.main-nav .shop-button {
+    background-color: #dc3545; /* Красный */
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-weight: normal;
+}
+
+.main-nav .shop-button:hover {
+    background-color: #c82333;
+}
+
+.search-bar {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 40px;
+}
+
+.search-bar input {
+    border: none;
+    padding: 0 10px;
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+.search-bar input:focus {
+    outline: none;
+}
+
+.search-bar button {
+    background-color: white;
+    border: none;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 16px;
+}
+
+.log-in-button {
+    background-color: #dc3545; /* Красный */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.log-in-button:hover {
+    background-color: #c82333;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc; /* Заглушка для аватара */
+    border-radius: 50%;
+    overflow: hidden;
+    background-image: url('https://via.placeholder.com/40x40?text=User'); /* Замени на реальное изображение */
+    background-size: cover;
+}
+
+/* Основной контент - Список продуктов */
+.product-list-page {
+    padding: 30px 20px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.product-list-header {
+    margin-bottom: 20px;
+}
+
+.new-product-button {
+    background-color: #007bff; /* Синий цвет */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.new-product-button:hover {
+    background-color: #0056b3;
+}
+
+.product-table-wrapper {
+    overflow-x: auto; /* Позволяет прокручивать таблицу, если она слишком широка */
+}
+
+.product-table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px; /* Минимальная ширина, чтобы таблица не слишком сжималась */
+}
+
+.product-table-wrapper th,
+.product-table-wrapper td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+.product-table-wrapper th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: #555;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.product-table-wrapper tr:last-child td {
+    border-bottom: none;
+}
+
+.product-image-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative; /* Для позиционирования overlay */
+}
+
+.product-image-cell img {
+    width: 100px; /* Размер изображения как на скриншоте */
+    height: 70px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 50%;
+    left: 105px; /* Примерное положение справа от изображения */
+    transform: translateY(-50%);
+    background-color: #e0e0e0; /* Светло-серый фон */
+    border: 2px solid #555; /* Темная рамка */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #555;
+    line-height: 1;
+    padding-top: 2px;
+}
+
+
+/* Стили для кнопок "edit" и "delete" из JavaScript */
+.actions button,
+.btn { /* Добавляем .btn для соответствия твоему JS */
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 5px;
+    transition: background-color 0.3s ease;
+    min-width: 80px; /* Для единообразия ширины кнопок */
+    text-align: center;
+}
+
+.actions .edit-button,
+.btn-warning { /* Синий цвет для "Редактировать" / "edit" */
+    background-color: #007bff;
+    color: white;
+}
+
+.actions .edit-button:hover,
+.btn-warning:hover {
+    background-color: #0056b3;
+}
+
+.actions .delete-button,
+.btn-danger { /* Красный цвет для "Удалить" / "delete" */
+    background-color: #dc3545;
+    color: white;
+}
+
+.actions .delete-button:hover,
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Футер (хоть и не в твоем HTML, он есть на скриншоте) */
+.main-footer {
+    background-color: #dc3545; /* Красный цвет, как на скриншоте */
+    color: white;
+    padding: 60px 0 20px;
+    margin-top: 30px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-section h3, .footer-section h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.footer-section p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    line-height: 1.8;
+}
+
+.footer-section ul {
+    font-size: 14px;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.subscribe-input {
+    display: flex;
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.subscribe-input input {
+    border: none;
+    padding: 10px 15px;
+    flex-grow: 1;
+    font-size: 14px;
+    color: #333;
+}
+
+.subscribe-input input::placeholder {
+    color: #999;
+}
+
+.subscribe-input button {
+    background-color: white;
+    color: #333;
+    padding: 0 15px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-qr-codes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.app-qr-codes img {
+    border-radius: 4px;
+}
+
+.app-stores {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.app-stores img {
+    height: 30px;
+    width: auto;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ccc;
+}
+
+.copyright {
+    text-align: center;
+    font-size: 14px;
+    padding-top: 20px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 992px) {
+    .header-content {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
+    }
+    .search-bar {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .log-in-button, .user-avatar {
+        margin-top: 10px;
+    }
+    .product-list-page {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .main-nav {
+        width: 100%;
+        margin-top: 15px;
+    }
+    .main-nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .search-bar {
+        width: 100%;
+    }
+    .log-in-button, .user-avatar {
+        width: 100%;
+        text-align: center;
+        margin-top: 15px;
+    }
+    .log-in-button {
+        padding: 12px;
+    }
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .footer-section {
+        margin-bottom: 20px;
+    }
+    .subscribe-input {
+        max-width: 300px;
+        margin: 15px auto 0;
+    }
+    .app-qr-codes {
+        justify-content: center;
+    }
+    .social-icons {
+        justify-content: center;
+    }
+}
+    </style>
+</head>
+<body>
+    <main class="container product-list-page">
+        <div class="product-list-header">
+            <button class="new-product-button">Новый продукт?</button>
+        </div>
+
+        <div class="product-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Бренд</th>
+                        <th>Модель</th>
+                        <th>Категория</th>
+                        <th>Изображение</th>
+                        <th>Цена</th>
+                        <th>Рейтинг</th>
+                        <th>Операции</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+ <script>
+function loadCars() {
+    fetch("http://localhost:8362/clothes/my-items", {
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwt_token")
+        }
+    })
+    .then(r => r.json())
+    .then((data) => {
+        const tbody = document.getElementById("productTableBody");
+        tbody.innerHTML = "";
+
+        data.forEach((c, i) => {
+            tbody.insertAdjacentHTML(
+                "beforeend",
+                `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>${c.brand}</td>
+                    <td>${c.model}</td>
+                    <td><button class="btn btn-warning">edit</button></td>
+                    <td><button class="btn btn-danger">delete</button></td>
+                </tr>
+                `
+            );
+        });
+    });
+}
+
+window.onload = loadCars;
+</script>
+</body>
+</html>

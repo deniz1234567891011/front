@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Log in</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styl.css" />
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="container">
+        <div id="navbar-placeholder" style="margin-bottom: 100px;"></div>
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md" style="margin-left: 500px;">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Log in</h2>
+            <form class="space-y-4" id="login-form">
+                <div>
+                    <label for="login-username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                    <input
+                        type="text"
+                        id="login-username"
+                        placeholder="Username"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+                <div>
+                    <label for="login-password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="Password"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+                <button
+                    type="submit"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                >
+                    Log in
+                </button>
+            </form>
+        </div>
+        <div id="footer-placeholder" style="margin-top: 100px;"></div>
+    </div>
+
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+  fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+
+            // ✅ После вставки навбара – показать ник, скрыть/показать кнопки
+            const usernameElement = document.getElementById("username");
+            const logoutBtn = document.querySelector(".logout-btn");
+            const loginBtn = document.querySelector(".login-btn");
+            const storedUsername = localStorage.getItem("username");
+
+            if (storedUsername) {
+                if (usernameElement) usernameElement.textContent = storedUsername;
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+                if (loginBtn) loginBtn.style.display = "none";
+            } else {
+                if (usernameElement) usernameElement.textContent = "";
+                if (logoutBtn) logoutBtn.style.display = "none";
+                if (loginBtn) loginBtn.style.display = "inline-block";
+            }
+
+            // ✅ Обработка выхода
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("jwt_token");
+                    alert("Вы вышли из аккаунта");
+                    window.location.href = "inde.html";
+                });
+            }
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+         });
+ 
+         document.addEventListener('DOMContentLoaded', function() {
+             fetch('footer.html')
+                 .then(response => response.text())
+                 .then(data => {
+                     document.getElementById('footer-placeholder').innerHTML = data;
+                 })
+                 .catch(error => console.error('Error loading navbar:', error));
+         });
+        let jwtToken = null;
+        const baseUrl = "http://localhost:8362/auth";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("login-form").addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const username = document.getElementById("login-username").value;
+                const password = document.getElementById("login-password").value;
+
+                try {
+                    const response = await fetch(`${baseUrl}/login`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ username, password }),
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(`Login failed: ${errorData.message || response.statusText}`);
+                    }
+
+                    const data = await response.json();
+                    jwtToken = data.token;
+                    localStorage.setItem("jwt_token", jwtToken);
+                    localStorage.setItem("username",username)
+                    alert("Вход выполнен");
+                    window.location.href = "inde.html"
+                    console.log("JWT Token:", jwtToken);
+                } catch (error) {
+                    console.error("Login failed:", error);
+                    alert("Ошибка входа: " + error.message);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            Summer Sales for All Sales Suits And Free Express Delivery - OFF 50% <a href="#">ShopNow</a>
+        </div>
+        <nav class="navbar">
+            <h1 class="logo">E-commerce</h1>
+            <ul class="nav-links">
+                <li><a href="inde.html">Home</a></li>
+                <li><a href="contact-us.html">Contact</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="create-account.html">Sign Up</a></li>
+                <li><a href="shop-page.html" class="shop-btn">Shop</a></li>
+           
+
+            
+                <li><input type="text" placeholder="What are you looking for?"></li>
+                     <li><a href="" style="width: 20px; height: 15px;"><img src="image copy 9.png" alt=""></a></li>
+                    <li><a href="cart.html"><img src="image copy 7.png" alt=""></a></li>
+                                    <li><a href="basketforfp.html"><img src="image copy 8.png" alt=""></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="user-info.html" id="username"></a></li>
+                <li><a href="#" class="logout-btn">Log Out</a></li>
+                <li><a href="login.html" class="login-btn">Log In</a></li>
+            </ul>
+        </nav>
+    </header>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const username = document.getElementById("username");
+    const storedUsername = localStorage.getItem("username");
+    if (username && storedUsername) {
+        username.textContent = storedUsername; 
+    }
+});
+
+</script>
+</body>
+</html>

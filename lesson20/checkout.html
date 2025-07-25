@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>  <link rel="stylesheet" href="styl.css">
+<style>
+    .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links .active {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.login-btn {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.product-section, .checkout-section {
+  padding: 30px;
+}
+
+.product-container {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.product-img {
+  width: 300px;
+  border-radius: 12px;
+}
+
+.product-details {
+  max-width: 500px;
+}
+
+.price {
+  font-size: 24px;
+  color: #f44336;
+}
+
+.add-to-cart {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.related-products {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  width: 180px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.checkout-form, .payment-summary {
+  display: inline-block;
+  vertical-align: top;
+  width: 45%;
+  margin: 2%;
+}
+
+.checkout-form input {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+#place-order {
+  background: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+}
+
+</style>
+<body>
+  <div id="navbar-placeholder"></div>
+     <main class="checkout-section">
+    <form class="checkout-form">
+      <h2>Checkout</h2>
+      <input type="text" placeholder="First Name">
+      <input type="text" placeholder="Last Name">
+      <input type="text" placeholder="City">
+      <input type="text" placeholder="Street">
+      <input type="text" placeholder="ZIP">
+      <input type="email" placeholder="Email">
+      <label><input type="checkbox"> Agree to terms</label>
+    </form>
+
+    <div class="payment-summary">
+      <h3>Payment</h3>
+       <p>Subtotal: $<span id="subtotal">0.00</span></p>
+      <p>Shipping: Free</p>
+      <p>Total: $<span id="total">0.00</span></p>
+      <button id="place-order">Place Order</button>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+
+            // ✅ После вставки навбара – показать ник, скрыть/показать кнопки
+            const usernameElement = document.getElementById("username");
+            const logoutBtn = document.querySelector(".logout-btn");
+            const loginBtn = document.querySelector(".login-btn");
+            const storedUsername = localStorage.getItem("username");
+
+            if (storedUsername) {
+                if (usernameElement) usernameElement.textContent = storedUsername;
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+                if (loginBtn) loginBtn.style.display = "none";
+            } else {
+                if (usernameElement) usernameElement.textContent = "";
+                if (logoutBtn) logoutBtn.style.display = "none";
+                if (loginBtn) loginBtn.style.display = "inline-block";
+            }
+
+            // ✅ Обработка выхода
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("jwt_token");
+                    alert("Вы вышли из аккаунта");
+                    window.location.href = "inde.html";
+                });
+            }
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+         });
+ 
+         document.addEventListener('DOMContentLoaded', function() {
+             fetch('footer.html')
+                 .then(response => response.text())
+                 .then(data => {
+                     document.getElementById('footer-placeholder').innerHTML = data;
+                 })
+                 .catch(error => console.error('Error loading navbar:', error));
+         });
+         const subtotal = document.getElementById("subtotal")
+         const total = document.getElementById("total")
+         subtotal.innerHTML = localStorage.getItem("subtotal")
+         total.innerHTML = localStorage.getItem("total")
+const order = document.getElementById("place-order")
+order.addEventListener("click",function(){
+  alert("Ваш Заказ Выполнен Ожидайте Доставки В Течении 4-6 Дней")
+  localStorage.removeItem("subtotal")
+    localStorage.removeItem("total")
+    window.location.href("inde.html"    )
+})
+ </script>
+</body>
+</html>

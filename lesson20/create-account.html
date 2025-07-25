@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Create an Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styl.css" />
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="container">
+        <div id="navbar-placeholder" style="margin-bottom: 100px;"></div>
+
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md" style="margin-left: 500px;">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Create an account</h2>
+            <form id="register-form" class="space-y-4">
+
+                <div>
+                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Email"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+                <div>
+                    <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username</label>
+                    <input
+                        type="text"
+                        id="register-username"
+                        placeholder="Username"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+                      <div>
+                    <label for="phoneNumber" class="block text-gray-700 text-sm font-bold mb-2">phoneNumber</label>
+                    <input
+                        type="text"
+                        id="phoneNumber"
+                        placeholder="phoneNumber"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+                <div>
+                    <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Password"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                </div>
+                <button
+                    type="submit"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                >
+                    Create account
+                </button>
+            </form>
+            <p class="text-center text-gray-600 text-sm mt-4">
+                Already have an account? <a href="login.html" class="text-blue-500 hover:text-blue-700 font-semibold">Log in</a>
+            </p>
+        </div>
+
+        <div id="footer-placeholder" style="margin-top: 100px;"></div>
+    </div>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+           fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+
+            // ✅ После вставки навбара – показать ник, скрыть/показать кнопки
+            const usernameElement = document.getElementById("username");
+            const logoutBtn = document.querySelector(".logout-btn");
+            const loginBtn = document.querySelector(".login-btn");
+            const storedUsername = localStorage.getItem("username");
+
+            if (storedUsername) {
+                if (usernameElement) usernameElement.textContent = storedUsername;
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+                if (loginBtn) loginBtn.style.display = "none";
+            } else {
+                if (usernameElement) usernameElement.textContent = "";
+                if (logoutBtn) logoutBtn.style.display = "none";
+                if (loginBtn) loginBtn.style.display = "inline-block";
+            }
+
+            // ✅ Обработка выхода
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("jwt_token");
+                    alert("Вы вышли из аккаунта");
+                    window.location.href = "inde.html";
+                });
+            }
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+        });
+        let baseUrl = "http://localhost:8362/auth"
+        document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("register-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+ const user = {
+  username: document.getElementById("register-username").value,
+  password: document.getElementById("password").value,
+  email: document.getElementById("email").value,
+  phoneNumber: document.getElementById("phoneNumber").value
+};
+
+ console.log(user)
+    try {
+      const response = await fetch(`${baseUrl}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (!response.ok) {
+        let errorData;
+        try {
+          const text = await response.text();
+          errorData = text ? JSON.parse(text) : { message: response.statusText };
+        } catch {
+          errorData = { message: response.statusText };
+        }
+       
+      }
+
+      let data = null;
+      try {
+        data = await response.json();
+      } catch {}
+
+      console.log("Registration successful:", data);
+      
+      alert("Регистрация выполнена успешно!");
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("Ошибка регистрации: " + error.message);
+    }
+  });
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+    <link rel="stylesheet" href="styl.css">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+    margin-left: 100px;
+    height: 250px;
+        }
+
+        h2 {
+            color: #e44d26;
+            margin-top: 0;
+        }
+
+        .user-info {
+            margin-bottom: 15px;
+        }
+
+        .user-info p {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .user-info strong {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar-placeholder" style="margin-bottom: 100px;"></div>
+<div id="userDetails"></div>
+    <div id="footer-placeholder" style="margin-top: 100px;"></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // ===== Загрузка Navbar =====
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+
+            const usernameElement = document.getElementById("username");
+            const logoutBtn = document.querySelector(".logout-btn");
+            const loginBtn = document.querySelector(".login-btn");
+            const storedUsername = localStorage.getItem("username");
+
+            if (storedUsername) {
+                if (usernameElement) usernameElement.textContent = storedUsername;
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+                if (loginBtn) loginBtn.style.display = "none";
+            } else {
+                if (usernameElement) usernameElement.textContent = "";
+                if (logoutBtn) logoutBtn.style.display = "none";
+                if (loginBtn) loginBtn.style.display = "inline-block";
+            }
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("jwt_token");
+                    alert("Вы вышли из аккаунта");
+                    window.location.href = "inde.html";
+                });
+            }
+        })
+        .catch(error => console.error('Ошибка при загрузке navbar:', error));
+
+    // ===== Загрузка Footer =====
+    fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Ошибка при загрузке footer:', error));
+
+    // ===== Загрузка деталей товара =====
+    const token = localStorage.getItem("jwt_token");
+
+    if (!token) {
+        document.getElementById("userDetails").innerHTML = "<p>Вы не авторизованы. Пожалуйста, <a href='login.html'>войдите</a>.</p>";
+        return;
+    }
+
+    fetch("http://localhost:8362/auth/me", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+})
+.then(res => {
+    if (!res.ok) throw new Error(`Ошибка: ${res.status}`);
+    return res.json();
+})
+.then((clothe) => {
+    console.log("Ответ от сервера:", clothe);
+    const container = document.getElementById("userDetails");
+
+    if (!clothe || !clothe.id) {
+        container.innerHTML = "<p>Товар не найден.</p>";
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="container">
+            <div class="user-info">
+                <p><strong>Имя:</strong> ${clothe.username}</p>
+                <p><strong>Энаблед:</strong> ${clothe.enabled}</p>
+                <p><strong>Эмаил:</strong> ${clothe.email}</p>
+                <p><strong>Телефон:</strong> ${clothe.phoneNumber}</p>
+            </div>
+        </div>
+    `;
+})
+.catch(error => {
+    console.error("Ошибка при загрузке данных:", error);
+    document.getElementById("userDetails").innerHTML = "<p>Ошибка при загрузке данных. Возможно, вы не авторизованы.</p>";
+});
+})
+</script>
+
+</body>
+</html>

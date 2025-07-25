@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styl.css">
+    <style>
+        .container {
+  width: 90%;
+  margin: auto;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.about-text {
+  flex: 1 1 50%;
+  font-size: 16px;
+  line-height: 1.6;
+  padding-right: 20px;
+}
+
+.about-image {
+  flex: 1 1 40%;
+  text-align: center;
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.team {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  text-align: center;
+}
+
+.team-member {
+  flex: 1 1 30%;
+  background: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.team-member img {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.team-member h3 {
+  margin-top: 15px;
+  font-size: 20px;
+}
+
+.team-member p {
+  color: gray;
+}
+
+.social-icons img {
+  width: 20px;
+  margin: 5px;
+}
+
+    </style>
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+    <section id="about" style="padding: 50px 0;">
+        <div class="container">
+          <h2 class="section-title">Our Story</h2>
+          <div class="about-content">
+            <div class="about-text">
+              <p>
+                Launched in 2015, Exclusive is South Asia’s premier online shopping marketplace with an active presence in Bangladesh. Supported by a wide range of tailored marketing, data and service solutions, Exclusive has 10,500 sellers and 300 brands and serves 3 million customers across the region.
+              </p>
+              <p>
+                Exclusive has more than 1 million products to offer, growing at a very fast rate. Exclusive offers a diverse assortment in categories ranging from consumer.
+              </p>
+            </div>
+            <div class="about-image">
+              <img src="shopping-image.jpg" alt="Shopping Online">
+            </div>
+          </div>
+      
+          <div class="team">
+            <div class="team-member">
+              <img src="emin.jpg" alt="Emin Sadiqli">
+              <h3>Emin Sadiqli</h3>
+              <p>Founder & Chairman</p>
+              <div class="social-icons">
+                <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABOFBMVEVHcExxF/13F/1zFf2AFv2MCu+iBOmyAuLEAd7SANraBMzwHpedI+XeANfmANHmAr+PF/6fD/vxAL7qArV7GP21FvnRVurnZ+P2Z9roQeDzGtXzB8v7AqvWiPn+7fn////7ftv/A7z0BKH3v/H+3fT+ruj+AJr/9/r/RcD/bMDKFff/Bo3iG+r8GrX/AIH+H5r/yeP+BHj/t9n/V5r+Am7+H37+BGT/ssX/Imz/RXv/ucz+e4z+JFT/XI3/MGL+LUf/u7f/yc7/Alr+OUf+MSz+QzT+R0T+iHD+SRj+VzH+WQX+AkL+c2L/0sT+aCX+cBL/7+j+aQL+eRv/oUX/fwL+iBD/wXz+jgD/3rr/1rn+dgz+nAP9FpT+lw7+qgH+tQD+vQD/w1f9kwf/xAD9PFn9ogj/ywD9uAfgLZLBAAAAaHRSTlMAW9H+////////xEsC///N////zFz/////////////////uP////7///////////7////////////////////////////////////////////////////////F/7VQ///+/87/vsj/uqL0GQwAAAHcSURBVHgBRMlFehwxEEDhV1VS04yZ7U04m+AmcBjfLLscJ4xLHyA0YGqSlJ7P9MT6BRC52EEQuDjlFITx2eWvXJsDQWYIKgJj4VQW5gBJAg75K5vTgZDTFUEu/kUEzqGaiC6DMBbhpqQyoyKTNYD1Hp+Ui6J0ZH1HhXNA0RfzyRIZl5WprroK3BZwwvx0aUGdB87HCIN5VBUVP9i468ZLxWLv+pg6vJmDaSiSW2eyIRNg84/HxfVJmTD3DxFWGmWjrosRpxMNGr3iIqYbG7IGK5lKvZE3jVuTynsDzHRoD3xpxaTQvIKumGBWgCouM9bPKEisJg0VTV4X0aBqQEuXQ2kGlmVmZCtgCoxBJfeAz0b8NQbWI7wOAKCZMgbn9E6tItG1HFTKRQ4jgSYpiiPu6BFJW1fW9J7oDFWWgpf0MH09YnB6yIEYnIJhLhqkpw3aC4OuUJ4QlDzX55/Um5m4Ue6dmXr59LwkBM0xy/ieVNV7zSSTZMU3fs8UNBomr+v3jQx5X1XmB7tdgnNu1JqDl+0nbnp+HpLp+WM5bB0mIMJFc/ouSgjd+U99O1qYONOhFEMonPcZCZ6eGp9eRcSwhWkSRCIxKnfeIMBh1WRcFOhTaENo/096OTA7AACDzKODDThakgAAAABJRU5ErkJggg==" alt="Instagram"></a>
+                <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAZlBMVEULZsP///8AX8EAYMGJqteRrtkAZMMAXcAbZsE7dsSwxeQKZL8AXMG7yua0yOIvccMAU7wAV7/C0efn7vSiud5ultB8n9GDo9Klvd7b5PAcacHV3u5Ae8ZfjMwlbcN5nNMAT73z9/moQ1nrAAABb0lEQVRIie3W23KDIBAGYJQIajABQWPSptb3f8kqq/EYcZnetf8Vk8k3ZJGsSwLPkF+AuYkcMfka6kIKHjrChSr0HBpJyaFQWU1hqY6xLuo2QoNwrawGqCXGESJ1D4uD9Q2hBcAGuWG7JcBcYKHILTQcC7mx8DQpkQkh3BWH0RKya67vhfOnryB72Gd7C7GQp3CdXEWvoPgAmDAszAAyLGSf1qWu01mfavhsr2GFP9V2T/Xg7vuw8RxtXiu7oJQuS97Y8drlq7sJsKAiqev6GYt92B/OhZMY2tf30GLymO3CBE51gKkZu9r02TqhHl3QTCp1wlkm/75DUDfDQmBgRJV6BsuL6Ialar/Me3lGHA70W3nHwgzKEhdPyP/hX4HQAbJXBzgKCTt3GRfwf2Bk+PgtXORdQ++h94vV+1Ue+A4P3uOK/4CEHclsm4YhsMYMgWUwQszY2b8W5oMu3U076MrloGtvpjk5sjVao+MNfwBrSRlueXYI3AAAAABJRU5ErkJggg==" alt="LinkedIn"></a>
+              </div>
+            </div>
+            <div class="team-member">
+              <img src="iman.jpg" alt="Iman Imanov">
+              <h3>Iman Imanov</h3>
+              <p>Managing Director</p>
+              <div class="social-icons">
+                <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABOFBMVEVHcExxF/13F/1zFf2AFv2MCu+iBOmyAuLEAd7SANraBMzwHpedI+XeANfmANHmAr+PF/6fD/vxAL7qArV7GP21FvnRVurnZ+P2Z9roQeDzGtXzB8v7AqvWiPn+7fn////7ftv/A7z0BKH3v/H+3fT+ruj+AJr/9/r/RcD/bMDKFff/Bo3iG+r8GrX/AIH+H5r/yeP+BHj/t9n/V5r+Am7+H37+BGT/ssX/Imz/RXv/ucz+e4z+JFT/XI3/MGL+LUf/u7f/yc7/Alr+OUf+MSz+QzT+R0T+iHD+SRj+VzH+WQX+AkL+c2L/0sT+aCX+cBL/7+j+aQL+eRv/oUX/fwL+iBD/wXz+jgD/3rr/1rn+dgz+nAP9FpT+lw7+qgH+tQD+vQD/w1f9kwf/xAD9PFn9ogj/ywD9uAfgLZLBAAAAaHRSTlMAW9H+////////xEsC///N////zFz/////////////////uP////7///////////7////////////////////////////////////////////////////////F/7VQ///+/87/vsj/uqL0GQwAAAHcSURBVHgBRMlFehwxEEDhV1VS04yZ7U04m+AmcBjfLLscJ4xLHyA0YGqSlJ7P9MT6BRC52EEQuDjlFITx2eWvXJsDQWYIKgJj4VQW5gBJAg75K5vTgZDTFUEu/kUEzqGaiC6DMBbhpqQyoyKTNYD1Hp+Ui6J0ZH1HhXNA0RfzyRIZl5WprroK3BZwwvx0aUGdB87HCIN5VBUVP9i468ZLxWLv+pg6vJmDaSiSW2eyIRNg84/HxfVJmTD3DxFWGmWjrosRpxMNGr3iIqYbG7IGK5lKvZE3jVuTynsDzHRoD3xpxaTQvIKumGBWgCouM9bPKEisJg0VTV4X0aBqQEuXQ2kGlmVmZCtgCoxBJfeAz0b8NQbWI7wOAKCZMgbn9E6tItG1HFTKRQ4jgSYpiiPu6BFJW1fW9J7oDFWWgpf0MH09YnB6yIEYnIJhLhqkpw3aC4OuUJ4QlDzX55/Um5m4Ue6dmXr59LwkBM0xy/ieVNV7zSSTZMU3fs8UNBomr+v3jQx5X1XmB7tdgnNu1JqDl+0nbnp+HpLp+WM5bB0mIMJFc/ouSgjd+U99O1qYONOhFEMonPcZCZ6eGp9eRcSwhWkSRCIxKnfeIMBh1WRcFOhTaENo/096OTA7AACDzKODDThakgAAAABJRU5ErkJggg==" alt="Instagram"></a>
+                <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAZlBMVEULZsP///8AX8EAYMGJqteRrtkAZMMAXcAbZsE7dsSwxeQKZL8AXMG7yua0yOIvccMAU7wAV7/C0efn7vSiud5ultB8n9GDo9Klvd7b5PAcacHV3u5Ae8ZfjMwlbcN5nNMAT73z9/moQ1nrAAABb0lEQVRIie3W23KDIBAGYJQIajABQWPSptb3f8kqq/EYcZnetf8Vk8k3ZJGsSwLPkF+AuYkcMfka6kIKHjrChSr0HBpJyaFQWU1hqY6xLuo2QoNwrawGqCXGESJ1D4uD9Q2hBcAGuWG7JcBcYKHILTQcC7mx8DQpkQkh3BWH0RKya67vhfOnryB72Gd7C7GQp3CdXEWvoPgAmDAszAAyLGSf1qWu01mfavhsr2GFP9V2T/Xg7vuw8RxtXiu7oJQuS97Y8drlq7sJsKAiqev6GYt92B/OhZMY2tf30GLymO3CBE51gKkZu9r02TqhHl3QTCp1wlkm/75DUDfDQmBgRJV6BsuL6Ialar/Me3lGHA70W3nHwgzKEhdPyP/hX4HQAbJXBzgKCTt3GRfwf2Bk+PgtXORdQ++h94vV+1Ue+A4P3uOK/4CEHclsm4YhsMYMgWUwQszY2b8W5oMu3U076MrloGtvpjk5sjVao+MNfwBrSRlueXYI3AAAAABJRU5ErkJggg==" alt="LinkedIn"></a>
+              </div>
+            </div>
+            <div class="team-member">
+              <img src="nicat.jpg" alt="Nicat Piriyev">
+              <h3>Nicat Piriyev</h3>
+              <p>Product Designer</p>
+              <div class="social-icons">
+                <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAABOFBMVEVHcExxF/13F/1zFf2AFv2MCu+iBOmyAuLEAd7SANraBMzwHpedI+XeANfmANHmAr+PF/6fD/vxAL7qArV7GP21FvnRVurnZ+P2Z9roQeDzGtXzB8v7AqvWiPn+7fn////7ftv/A7z0BKH3v/H+3fT+ruj+AJr/9/r/RcD/bMDKFff/Bo3iG+r8GrX/AIH+H5r/yeP+BHj/t9n/V5r+Am7+H37+BGT/ssX/Imz/RXv/ucz+e4z+JFT/XI3/MGL+LUf/u7f/yc7/Alr+OUf+MSz+QzT+R0T+iHD+SRj+VzH+WQX+AkL+c2L/0sT+aCX+cBL/7+j+aQL+eRv/oUX/fwL+iBD/wXz+jgD/3rr/1rn+dgz+nAP9FpT+lw7+qgH+tQD+vQD/w1f9kwf/xAD9PFn9ogj/ywD9uAfgLZLBAAAAaHRSTlMAW9H+////////xEsC///N////zFz/////////////////uP////7///////////7////////////////////////////////////////////////////////F/7VQ///+/87/vsj/uqL0GQwAAAHcSURBVHgBRMlFehwxEEDhV1VS04yZ7U04m+AmcBjfLLscJ4xLHyA0YGqSlJ7P9MT6BRC52EEQuDjlFITx2eWvXJsDQWYIKgJj4VQW5gBJAg75K5vTgZDTFUEu/kUEzqGaiC6DMBbhpqQyoyKTNYD1Hp+Ui6J0ZH1HhXNA0RfzyRIZl5WprroK3BZwwvx0aUGdB87HCIN5VBUVP9i468ZLxWLv+pg6vJmDaSiSW2eyIRNg84/HxfVJmTD3DxFWGmWjrosRpxMNGr3iIqYbG7IGK5lKvZE3jVuTynsDzHRoD3xpxaTQvIKumGBWgCouM9bPKEisJg0VTV4X0aBqQEuXQ2kGlmVmZCtgCoxBJfeAz0b8NQbWI7wOAKCZMgbn9E6tItG1HFTKRQ4jgSYpiiPu6BFJW1fW9J7oDFWWgpf0MH09YnB6yIEYnIJhLhqkpw3aC4OuUJ4QlDzX55/Um5m4Ue6dmXr59LwkBM0xy/ieVNV7zSSTZMU3fs8UNBomr+v3jQx5X1XmB7tdgnNu1JqDl+0nbnp+HpLp+WM5bB0mIMJFc/ouSgjd+U99O1qYONOhFEMonPcZCZ6eGp9eRcSwhWkSRCIxKnfeIMBh1WRcFOhTaENo/096OTA7AACDzKODDThakgAAAABJRU5ErkJggg==" alt="Instagram"></a>
+                <a href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAZlBMVEULZsP///8AX8EAYMGJqteRrtkAZMMAXcAbZsE7dsSwxeQKZL8AXMG7yua0yOIvccMAU7wAV7/C0efn7vSiud5ultB8n9GDo9Klvd7b5PAcacHV3u5Ae8ZfjMwlbcN5nNMAT73z9/moQ1nrAAABb0lEQVRIie3W23KDIBAGYJQIajABQWPSptb3f8kqq/EYcZnetf8Vk8k3ZJGsSwLPkF+AuYkcMfka6kIKHjrChSr0HBpJyaFQWU1hqY6xLuo2QoNwrawGqCXGESJ1D4uD9Q2hBcAGuWG7JcBcYKHILTQcC7mx8DQpkQkh3BWH0RKya67vhfOnryB72Gd7C7GQp3CdXEWvoPgAmDAszAAyLGSf1qWu01mfavhsr2GFP9V2T/Xg7vuw8RxtXiu7oJQuS97Y8drlq7sJsKAiqev6GYt92B/OhZMY2tf30GLymO3CBE51gKkZu9r02TqhHl3QTCp1wlkm/75DUDfDQmBgRJV6BsuL6Ialar/Me3lGHA70W3nHwgzKEhdPyP/hX4HQAbJXBzgKCTt3GRfwf2Bk+PgtXORdQ++h94vV+1Ue+A4P3uOK/4CEHclsm4YhsMYMgWUwQszY2b8W5oMu3U076MrloGtvpjk5sjVao+MNfwBrSRlueXYI3AAAAABJRU5ErkJggg==" alt="LinkedIn"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div id="footer-placeholder"></div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+           fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+
+            // ✅ После вставки навбара – показать ник, скрыть/показать кнопки
+            const usernameElement = document.getElementById("username");
+            const logoutBtn = document.querySelector(".logout-btn");
+            const loginBtn = document.querySelector(".login-btn");
+            const storedUsername = localStorage.getItem("username");
+
+            if (storedUsername) {
+                if (usernameElement) usernameElement.textContent = storedUsername;
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+                if (loginBtn) loginBtn.style.display = "none";
+            } else {
+                if (usernameElement) usernameElement.textContent = "";
+                if (logoutBtn) logoutBtn.style.display = "none";
+                if (loginBtn) loginBtn.style.display = "inline-block";
+            }
+
+            // ✅ Обработка выхода
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("jwt_token");
+                    alert("Вы вышли из аккаунта");
+                    window.location.href = "inde.html";
+                });
+            }
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('footer-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+        });
+ </script>
+</body>
+</html>

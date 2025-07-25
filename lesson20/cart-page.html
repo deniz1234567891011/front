@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <link rel="stylesheet" href="styl.css">
+</head>
+<style>
+    .cart-section {
+  padding: 40px;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+
+.cart-table th, .cart-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-table img {
+  vertical-align: middle;
+  margin-right: 10px;
+  border-radius: 8px;
+}
+
+.cart-table input[type="number"] {
+  width: 50px;
+  padding: 5px;
+}
+
+.cart-summary {
+  max-width: 300px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  float: right;
+  border-radius: 10px;
+}
+
+.cart-summary p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.cart-summary h2 {
+  margin-bottom: 20px;
+}
+
+.cart-summary .place-order {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  width: 100%;
+  cursor: pointer;
+}
+
+</style>
+<body>
+  <div id="navbar-placeholder"></div>
+    <main class="cart-section">
+    <h1>Cart</h1>
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><img src="https://m.media-amazon.com/images/I/71fwbMm1NIL._AC_UL1500_.jpg" width="70"> <span>Men's Cotton T-Shirt</span></td>
+          <td>18.95</td>
+          <td><input type="number" value="1" min="1"></td>
+          <td>$18.95</td>
+        </tr>
+        <tr>
+          <td><img src="https://m.media-amazon.com/images/I/81X2e+FZefL._AC_UL1500_.jpg" width="70"> <span>Nike Running Shoes</span></td>
+          <td>89.95</td>
+          <td><input type="number" value="1" min="1"></td>
+          <td>$89.95</td>
+        </tr>
+        <tr>
+          <td><img src="https://m.media-amazon.com/images/I/71F7QDO9efL._AC_UL1500_.jpg" width="70"> <span>Sweater Sweatshirt</span></td>
+          <td>79.95</td>
+          <td><input type="number" value="1" min="1"></td>
+          <td>$79.95</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cart-summary">
+      <h2>Cart total</h2>
+      <p>Subtotal: <strong>$188.85</strong></p>
+      <p>Shipping: <strong>Free</strong></p>
+      <p>Total: <strong>$188.85</strong></p>
+      <button class="place-order">Proceed to Checkout</button>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+
+            // ✅ После вставки навбара – показать ник, скрыть/показать кнопки
+            const usernameElement = document.getElementById("username");
+            const logoutBtn = document.querySelector(".logout-btn");
+            const loginBtn = document.querySelector(".login-btn");
+            const storedUsername = localStorage.getItem("username");
+
+            if (storedUsername) {
+                if (usernameElement) usernameElement.textContent = storedUsername;
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+                if (loginBtn) loginBtn.style.display = "none";
+            } else {
+                if (usernameElement) usernameElement.textContent = "";
+                if (logoutBtn) logoutBtn.style.display = "none";
+                if (loginBtn) loginBtn.style.display = "inline-block";
+            }
+
+            // ✅ Обработка выхода
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("jwt_token");
+                    alert("Вы вышли из аккаунта");
+                    window.location.href = "inde.html";
+                });
+            }
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+         });
+ 
+         document.addEventListener('DOMContentLoaded', function() {
+             fetch('footer.html')
+                 .then(response => response.text())
+                 .then(data => {
+                     document.getElementById('footer-placeholder').innerHTML = data;
+                 })
+                 .catch(error => console.error('Error loading navbar:', error));
+         });
+ </script>
+</body>
+</html>

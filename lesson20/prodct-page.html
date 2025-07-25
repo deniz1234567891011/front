@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <link rel="stylesheet" href="styl.css">
+</head>
+<style>
+    .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-links .active {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.login-btn {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.product-section, .checkout-section {
+  padding: 30px;
+}
+
+.product-container {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.product-img {
+  width: 300px;
+  border-radius: 12px;
+}
+
+.product-details {
+  max-width: 500px;
+}
+
+.price {
+  font-size: 24px;
+  color: #f44336;
+}
+
+.add-to-cart {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.related-products {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  width: 180px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.checkout-form, .payment-summary {
+  display: inline-block;
+  vertical-align: top;
+  width: 45%;
+  margin: 2%;
+}
+
+.checkout-form input {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+.place-order {
+  background: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+}
+
+</style>
+<body>
+  <div id="navbar-placeholder"></div>
+     <main class="product-section">
+    <h1>Product page</h1>
+    <div class="product-container">
+      <img src="https://m.media-amazon.com/images/I/61nPiOOv9BL._AC_SL1500_.jpg" alt="Gamepad" class="product-img">
+      <div class="product-details">
+        <h2>Havic HV-G 92 Gamepad</h2>
+        <p class="price">$192.00</p>
+        <p class="rating">⭐⭐⭐⭐☆ (150)</p>
+        <p class="desc">Wireless controller with high-quality grip and ultra-fast response. Works with most gaming platforms.</p>
+        <button onclick="addToBasket" class="add-to-cart">Add to Cart</button>
+        <div class="features">
+          <p>🚚 Free Delivery</p>
+          <p>🔁 Easy Returns</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Related Products</h3>
+    <div class="related-products">
+      <div class="product-card">
+        <img src="https://m.media-amazon.com/images/I/71IgeHTg18L._AC_SL1500_.jpg" alt="">
+        <p>HAVIT HV-G85 Gamepad</p>
+        <p>⭐⭐⭐⭐☆</p>
+        <p>$50</p>
+      </div>
+      <div class="product-card">
+        <img src="https://m.media-amazon.com/images/I/61UwN5hhV0L._AC_SL1000_.jpg" alt="">
+        <p>AJAZZ K82 Wired Keyboard</p>
+        <p>⭐⭐⭐⭐⭐</p>
+        <p>$90</p>
+      </div>
+      <div class="product-card">
+        <img src="https://m.media-amazon.com/images/I/61j1lzJq1kL._AC_SL1500_.jpg" alt="">
+        <p>EPIC RGB Gaming Mouse</p>
+        <p>⭐⭐⭐⭐☆</p>
+        <p>$60</p>
+      </div>
+      <div class="product-card">
+        <img src="https://m.media-amazon.com/images/I/61lz8d6+gIL._AC_SL1500_.jpg" alt="">
+        <p>RGB Liquid CPU Cooler</p>
+        <p>⭐⭐⭐☆☆</p>
+        <p>$75</p>
+      </div>
+    </div>
+  </main>
+  <div id="footer-placeholder"></div>
+   <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar-placeholder').innerHTML = data;
+
+            // ✅ После вставки навбара – показать ник, скрыть/показать кнопки
+            const usernameElement = document.getElementById("username");
+            const logoutBtn = document.querySelector(".logout-btn");
+            const loginBtn = document.querySelector(".login-btn");
+            const storedUsername = localStorage.getItem("username");
+
+            if (storedUsername) {
+                if (usernameElement) usernameElement.textContent = storedUsername;
+                if (logoutBtn) logoutBtn.style.display = "inline-block";
+                if (loginBtn) loginBtn.style.display = "none";
+            } else {
+                if (usernameElement) usernameElement.textContent = "";
+                if (logoutBtn) logoutBtn.style.display = "none";
+                if (loginBtn) loginBtn.style.display = "inline-block";
+            }
+
+            // ✅ Обработка выхода
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("jwt_token");
+                    alert("Вы вышли из аккаунта");
+                    window.location.href = "inde.html";
+                });
+            }
+        })
+        .catch(error => console.error('Error loading navbar:', error));
+         });
+ 
+         document.addEventListener('DOMContentLoaded', function() {
+             fetch('footer.html')
+                 .then(response => response.text())
+                 .then(data => {
+                     document.getElementById('footer-placeholder').innerHTML = data;
+                 })
+                 .catch(error => console.error('Error loading navbar:', error));
+         });
+         function addToBasket(id) {
+  fetch(`http://localhost:8362/basket/add/${id}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
+      "Content-Type": "application/json"
+    }
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("Failed to add item to basket.");
+    alert("Item added to basket!");
+  })
+  .catch(error => console.error("Basket error:", error));
+}
+ </script>
+</body>
+</html>

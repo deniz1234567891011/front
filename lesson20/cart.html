@@ -1,0 +1,198 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart</title>
+<link rel="stylesheet" href="styl.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  padding: 40px;
+  background-color: #f9f9f9;
+}
+.cart-container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+th, td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+.cart-total {
+  text-align: right;
+}
+button {
+  background-color: #ff3f40;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+  </style>
+</head>
+<body>
+  <div id="navbar-placeholder"></div>
+  <div class="cart-container">
+    <h1>Cart</h1>
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- JS will add rows here -->
+      </tbody>
+    </table>
+
+    <div class="cart-total">
+      <p>Subtotal: $<span id="subtotal">0.00</span></p>
+      <p>Shipping: Free</p>
+      <p>Total: $<span id="total">0.00</span></p>
+<a id="dd" href="checkout.html" style="border-radius: 55px; background-color: red;">Process to checkout</a>
+
+    </div>
+  </div>
+<div id="footer-placeholder"></div>
+<script>
+  function loadBasket() {
+  fetch("http://localhost:8362/basket/basket", {
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("jwt_token")
+    }
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("HTTP error: " + res.status);
+    return res.json();
+  })
+  .then(data => {
+    showMyBasket(data);
+    calculateTotals(data);
+  })
+  .catch(err => {
+    console.error("Error loading basket:", err);
+  });
+}
+
+function showMyBasket(basketItems) {
+  const tbody = document.getElementById("cart-items");
+
+  tbody.innerHTML = '';
+
+  basketItems.forEach((item, index) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>
+        <div class="product-info">
+          <img src="${item.imgUrl}" alt="${item.brand}" class="product-image">
+          <div>
+            <div class="product-name">${item.brand}</div>
+            <div class="product-brand">${item.model}</div>
+          </div>
+        </div>
+      </td>
+      <td class="price">$${item.price.toFixed(2)}</td>
+      <td>
+        <div class="quantity-control">
+          <input type="number" value="${item.quantity}" min="1" onchange="updateQuantityInput(${index}, this)">
+        </div>
+      </td>
+      <td class="total-price">$${(item.price * item.quantity).toFixed(2)}</td>
+      <td>
+        <button onclick="deleteCarFromBasket(${item.id})">🗑</button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+function deleteCarFromBasket(carId) {
+        fetch(`http://localhost:8362/basket/remove/${carId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwt_token"),
+          },
+        }).then(() => loadBasket());
+      }
+
+window.onload = loadBasket;
+
+function calculateTotals(basketItems) {
+  let subtotal = 0;
+
+  basketItems.forEach(item => {
+    subtotal += item.price * item.quantity;
+  });
+
+  const total = subtotal; 
+
+  document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+  document.getElementById("total").textContent = total.toFixed(2);
+  const dd = document.getElementById("dd")
+  dd.addEventListener("click", function(){
+    localStorage.setItem("subtotal",subtotal)
+    localStorage.setItem("total",total)
+    window.location.href="checkout.html"
+  })
+}
+  function loadNavbarAndFooter() {
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+
+        const usernameElement = document.getElementById("username");
+        const logoutBtn = document.querySelector(".logout-btn");
+        const loginBtn = document.querySelector(".login-btn");
+        const storedUsername = localStorage.getItem("username");
+
+        if (storedUsername) {
+          if (usernameElement) usernameElement.textContent = storedUsername;
+          if (logoutBtn) logoutBtn.style.display = "inline-block";
+          if (loginBtn) loginBtn.style.display = "none";
+        } else {
+          if (usernameElement) usernameElement.textContent = "";
+          if (logoutBtn) logoutBtn.style.display = "none";
+          if (loginBtn) loginBtn.style.display = "inline-block";
+        }
+
+        if (logoutBtn) {
+          logoutBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            localStorage.removeItem("username");
+            localStorage.removeItem("jwt_token");
+            alert("Вы вышли из аккаунта");
+            window.location.href = "inde.html"; // испр. inde.html → index.html
+          });
+        }
+      })
+      .catch(error => console.error('Error loading navbar:', error));
+
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading footer:', error));
+  }
+loadNavbarAndFooter();
+</script>
+
+</body>
+</html>
